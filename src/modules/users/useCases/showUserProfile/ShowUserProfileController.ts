@@ -6,7 +6,7 @@ class ShowUserProfileController {
   constructor(private showUserProfileUseCase: ShowUserProfileUseCase) {}
 
   handle(request: Request, response: Response): Response {
-    const { user_id } = request.params;
+    const { user_id } = request.headers;
 
     const user = this.showUserProfileUseCase.execute({ user_id });
 
