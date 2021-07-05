@@ -1,0 +1,127 @@
+{
+  "openapi": "3.0.0",
+  "info":{
+    "title": "Atlas",
+    "description": "Esta é uma documentação sobre o Atlas API",
+    "version": "1.0.0"
+  },
+  "tags": [{
+    "name":"Users",
+    "description": "Gerenciamento de usuários."
+  }],
+  "paths":{
+    "/users":{
+      "post":{    
+        "tags": ["Users"],
+        "summary": "Create an user",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Rick Simoes",
+                  "email": "rickson.simoes@hotmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Email already exists"
+          }
+        }
+      },
+      "get":{
+        "tags": ["Users"],
+        "summary": "Show all users",
+        "description": "Show all users, as long as you are the admin",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": "true"
+          }
+        ],
+        "responses":{
+          "200": {
+            "description": "Show all users"
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Show a specific user",
+        "description": "Show a specific user",
+        "parameters":[
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": "true",
+            "schema":{
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Provide an UUID String"
+          }
+        ],
+        "responses":{
+          "200": {
+            "description": "Show specific user"
+          },
+          "404": {
+            "description": "User does not exists"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin":{
+      "patch":{    
+        "tags": ["Users"],
+        "summary": "Update an user to admin",
+        "description": "update a user to admin",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Provide an UUIDV4 string"
+          }
+        ],
+        "responses":{
+          "200": {
+            "description": "updated to admin"
+          },
+          "404": {
+            "description": "User does not exists"
+          }
+        }
+      }
+    }
+  }
+}
