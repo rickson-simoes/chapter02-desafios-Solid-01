@@ -15,11 +15,11 @@ class ShowUserProfileUseCase {
       throw new Error("User does not exists");
     }
 
-    const { admin } = user;
+    // const { admin } = user;
 
-    if (!admin) {
-      throw new Error("User not allowed to do this");
-    }
+    // if (!admin) {
+    //   throw new Error("User not allowed to do this");
+    // }
 
     return user;
   }
